@@ -7,3 +7,4 @@
 # create assets with UI
 - https://developer.algorand.org/articles/getting-started-assets/
 - https://developer.algorand.org/solutions/algorand-asset-management-portal/
+- - https://developer.algorand.org/articles/building-nfts-on-algorand/
