@@ -1,0 +1,19 @@
+accounts:
+  account_1:
+    address: "2CIJHPFJJBQN4BPXZHJDTXEY3V6JTKM32YZQFYDIZTBBWPMXKYAD6HYLG4"
+    mnemonic: "object radar torch alter acoustic veteran pen table alcohol setup update budget possible wide wage fresh jeans envelope aware suggest jealous timber float above convince"
+    private_key: "wCysyncAgcxP9NwwIDHd2UHU6sfeXL3zkiCOzbuIJ4vQkJO8qUhg3gX3ydI53JjdfJmpm9YzAuBozMIbPZdWAA=="
+  account_2:
+    address: "NWNRCM7WCEVDQA3CIYIXVGDBQDST32KHRRWBRQLB3GBPUXWUWHEFX3SCLE"
+    mnemonic: "cart parrot glare mountain mutual month bronze spring bag aerobic heavy target wealth critic rather prosper snack close high nuclear marriage indicate head above leg"
+    private_key: "GBmoxQgZyT2WI9OMCMHU3h18z0iWrGjuCtd0KcTLQY1tmxEz9hEqOANiRhF6mGGA5T3pR4xsGMFh2YL6XtSxyA=="
+  account_3:
+    address: "Q2GJQCWBK7CEQMCS75TOU2REMZSO42FDJ53BYQA4MT7L67S5DT7AGNTD5Q"
+    mnemonic: "lyrics tennis surprise arena toddler dumb disagree tattoo motor upgrade crew jealous entry turkey size rifle device light popular escape illness apple author absent result"
+    private_key: "K8z3tLew8Q/ZR96DrLtmeNelqj+5ueVhYFDRlLgq7KGGjJgKwVfESDBS/2bqaiRmZO5oo092HEAcZP6/fl0c/g=="
+  total: 3
+
+client_credentials:
+  address: "https://testnet-algorand.api.purestake.io/ps2"
+  token: "LVLfUG208O9sYkHCCrq9z99CCCXghD49OQETIEF9"
+
