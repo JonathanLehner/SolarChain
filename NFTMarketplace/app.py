@@ -149,7 +149,7 @@ if can_deploy and st.session_state.should_deploy_apps:
     st.session_state.app_is_deployed = True
 else:
     if not can_deploy:
-        st.error("You firs need to mint the NFTs.")
+        st.error("You first need to mint the NFTs.")
     else:
         st.success("Stateful Smart Contracts were successfully deployed.")
 

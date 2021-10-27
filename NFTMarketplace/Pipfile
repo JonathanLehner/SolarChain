@@ -1,0 +1,15 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+streamlit = "==0.87.0"
+pyteal = "==0.8.0"
+py-algorand-sdk = "==1.6.0"
+PyYAML = "==5.4.1"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"

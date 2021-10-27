@@ -1,5 +1,11 @@
 # SolarCoin
 
+# How to run
+`streamlit run app.py`
+
+`npm i && npm run start`
+
+
 # How to use with UI
 - https://github.com/PureStake/algosigner-dapp-example 
 - https://github.com/algorand/smart-contracts
