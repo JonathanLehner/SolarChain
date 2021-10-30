@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Create an Atomic Transfer - Algorand Features and Smart Contracts Demo</title>
+  <title>Mint a virtual PV by paying USDC</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.2/css/bulma.min.css"
     integrity="sha512-byErQdWdTqREz6DLAA9pCnLbdoGGhXfU6gm1c8bkf7F51JVmUBlayGe2A31VpXWQP+eiJ3ilTAZHCR3vmMyybA=="
     crossorigin="anonymous" />
@@ -23,9 +23,7 @@
 <body>
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <a class="navbar-item" href="https://algorand.com">
-        <img src="static/img/algorand_logo_mark_black.svg" style="height:100px;">
-      </a>
+      <div style="padding: 20px; font-weight: bold;">SolarChain</div>
 
       <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="algoDemoNavbar">
         <span aria-hidden="true"></span>
@@ -78,17 +76,7 @@
           </div>
         </div>
 
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">
-            Tools
-          </a>
 
-          <div class="navbar-dropdown">
-            <a class="navbar-item" target="_blank" href="https://testnet.algoexplorer.io/dispenser">
-              TestNet ALGO Faucet
-            </a>
-          </div>
-        </div>
       </div>
       <div class="navbar-end">
         <div class="navbar-item">
@@ -285,6 +273,9 @@
             </div>
           </div>
         </div>
+        <div style="text-align: center">
+          <img src="https://ipfs.io/ipfs/QmXLwzKdacJAJQb3tfu8Ar7vfNzqFHxE6bWLZXsxyCVCiE" alt="Solar Panel 1" style="width:200px;" height="60">
+        </div>
         <button class="button is-dark is-fullwidth" id="btnTradeAssets">Trade Assets</button>
       </div>
     </div>
@@ -409,10 +400,10 @@
         }))
         // create transactions
         .then((txParams) => {
-          let from = document.getElementById('fromAccountOnLeftSide').value;
+          let from = "PGPN6HSIXJT73IHLCSAH74NQB2KRGGZP3IPX5XKXA46LUIVOSOEYL3TOI4";
           let to = document.getElementById('toAccountOnLeftSide').value;
-          let assetId = Number(document.getElementById('assetOnLeftSide').value);
-          let amount = document.getElementById('amountOnLeftSide').value;
+          let assetId = 41927159;
+          let amount = "1";
 
           tx1 = {
             assetIndex: assetId,
@@ -429,8 +420,8 @@
           };
 
           from = document.getElementById('fromAccountOnRightSide').value;
-          to = document.getElementById('toAccountOnRightSide').value;
-          assetId = Number(document.getElementById('assetOnRightSide').value);
+          to = "PGPN6HSIXJT73IHLCSAH74NQB2KRGGZP3IPX5XKXA46LUIVOSOEYL3TOI4";
+          assetId = 10458941;
           amount = document.getElementById('amountOnRightSide').value;
 
           tx2 = {

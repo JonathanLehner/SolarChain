@@ -39,7 +39,7 @@ module.exports = function () {
 
     let ratn = parseInt(1); // 1 PV
     let ratd = parseInt(1000000); // for 1 Algo
-    let assetID = 41927159; // ID of the PV asset
+    let assetID = 42004617; // ID of the PV asset
     let minTrade = 999999; // minimum number of microAlgos to accept
     let expiryRound = txParams.lastRound + parseInt(10000);
     let maxFee = 2000; // we set the max fee to avoid account bleed from excessive fees
