@@ -334,7 +334,7 @@
       showProcessingModal("Creating split contract...");
 
       fetch(
-          `createPVLimitContract?sender=${sender}&recipient1=${recipient1}&ratio1=${ratio1}&recipient2=${recipient2}&ratio2=${ratio2}`
+          `createSplitContract?sender=${sender}&recipient1=${recipient1}&ratio1=${ratio1}&recipient2=${recipient2}&ratio2=${ratio2}`
         )
         .then((d) => d.json())
         .then((d) => {
@@ -378,7 +378,7 @@
           document.getElementById('processingMessage').innerHTML = "Executing contract...";
         })
         // after the contract funding is confirmed, execute the split
-        .then(() => fetch(`executePVLimitContract?address=${contractAddress}&amount=${amount}`))
+        .then(() => fetch(`executeSplitContract?address=${contractAddress}&amount=${amount}`))
         .then((d) => d.json())
         .then((d) => {
           if (d["error"]) {

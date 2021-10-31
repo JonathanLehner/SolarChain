@@ -12,7 +12,7 @@ module.exports = function () {
 
   // constants to use for the Algod client
   const token = {
-    'X-API-Key': `${process.env.API_KEY}` // 'YOUR PURESTAKE API KEY HERE'
+    'X-API-Key': `LVLfUG208O9sYkHCCrq9z99CCCXghD49OQETIEF9` // 'YOUR PURESTAKE API KEY HERE'
   }
 
   const server = 'https://testnet-algorand.api.purestake.io/ps2';
