@@ -7,6 +7,14 @@ const app = express()
 const port = 8080
 require('dotenv').config();
 
+const options = {
+  key: fs.readFileSync(__dirname + '/privkey.pem', 'utf8'),
+  cert: fs.readFileSync(__dirname + '/cert.pem', 'utf8'),
+  ca: fs.readFileSync(__dirname + '/chain.pem', 'utf8')
+};
+
+http.createServer(options, function (request, response) {})
+
 app.get('/createPVLimitContract', (req, response) => {
   console.log(req.url)
   var optionsQuerystring = req.url.split('?').pop();
@@ -14,8 +22,9 @@ app.get('/createPVLimitContract', (req, response) => {
   var options = querystring.parse(optionsQuerystring);
 
   require('./static/js/limitorder')();
+  console.log(options)
 
-  createPVLimitContract(options['account'])
+  createPVLimitContract(options['account'], options['price'])
     .then((data) => {
       response.write(JSON.stringify({
         "contractAddress": data
@@ -43,7 +52,7 @@ app.get('/executePVLimitContract', (req, response) => {
 
   require('./static/js/limitorder')();
 
-  executePVLimitContract(options['address'])
+  executePVLimitContract(options['address'], options['price'])
     .then((data) => {
       response.write(JSON.stringify({
         "txId": data
@@ -60,6 +69,57 @@ app.get('/executePVLimitContract', (req, response) => {
       response.end();
     });
 })
+
+app.get('/createSplitContract', (req, response) => {
+  var optionsQuerystring = req.url.split('?').pop();
+
+  var options = querystring.parse(optionsQuerystring);
+
+  require('./static/js/split')();
+
+  createSplitContract(options['sender'], options['recipient1'], options['ratio1'], 
+    options['recipient2'], options['ratio2'])
+    .then((data) => {
+      response.write(JSON.stringify({
+        "contractAddress": data
+      }));
+      response.statusCode = 200;
+      response.end();
+    })
+    .catch((e) => {
+      console.log(e);
+      response.writeHead(e.status);
+      response.write(JSON.stringify({
+        "error": e
+      }));
+      response.end();
+    });
+});
+
+app.get('/executeSplitContract', (req, response) => {
+  var optionsQuerystring = req.url.split('?').pop();
+
+  var options = querystring.parse(optionsQuerystring);
+
+  require('./static/js/split')();
+
+  executeSplitContract(options['address'], options['amount'])
+    .then((data) => {
+      response.write(JSON.stringify({
+        "txId": data
+      }));
+      response.statusCode = 200;
+      response.end();
+    })
+    .catch((e) => {
+      console.log(e);
+      response.writeHead(e.status);
+      response.write(JSON.stringify({
+        "error": e
+      }));
+      response.end();
+    });
+});
 
 app.get('*', function(req, response) {
   var filePath = '.' + req.url;
@@ -118,120 +178,9 @@ app.get('*', function(req, response) {
   });
 });
 
+// for SSL
 app.use(express.static(__dirname, { dotfiles: 'allow' } ));
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
-})
-
-const options = {
-  key: fs.readFileSync(__dirname + '/privkey.pem', 'utf8'),
-  cert: fs.readFileSync(__dirname + '/cert.pem', 'utf8'),
-  ca: fs.readFileSync(__dirname + '/chain.pem', 'utf8')
-};
-
-http.createServer(options, function (request, response) {
-  
-
-  if (filePath.includes('./createPVLimitContract')) {
-    
-  } else if (filePath.includes('./executePVLimitContract')) {
-    
-  } else if (filePath.includes('./createHashTimeLockContract')) {
-    var optionsQuerystring = filePath.split('?').pop();
-
-    var options = querystring.parse(optionsQuerystring);
-
-    require('./static/js/hashtimelock')();
-
-    createHashTimeLockContract(options['owner'], options['receiver'])
-      .then((data) => {
-        response.write(JSON.stringify({
-          "contractAddress": data[0],
-          "passphrase": data[1]
-        }));
-        response.statusCode = 200;
-        response.end();
-      })
-      .catch((e) => {
-        console.log(e);
-        response.writeHead(e.status);
-        response.write(JSON.stringify({
-          "error": e
-        }));
-        response.end();
-      });
-  } else if (filePath.includes('./unlockHashTimeLockContract')) {
-    var optionsQuerystring = filePath.split('?').pop();
-
-    var options = querystring.parse(optionsQuerystring);
-
-    require('./static/js/hashtimelock')();
-
-    unlockHashTimeLockContract(options['address'], options['closeRemainderTo'], options['preb64'])
-      .then((data) => {
-        response.write(JSON.stringify({
-          "txId": data
-        }));
-        response.statusCode = 200;
-        response.end();
-      })
-      .catch((e) => {
-        console.log(e);
-        response.writeHead(e.status);
-        response.write(JSON.stringify({
-          "error": e
-        }));
-        response.end();
-      });
-    
-  } else if (filePath.includes('./createSplitContract')) {
-    var optionsQuerystring = filePath.split('?').pop();
-
-    var options = querystring.parse(optionsQuerystring);
-
-    require('./static/js/split')();
-
-    createSplitContract(options['sender'], options['recipient1'], options['ratio1'], 
-      options['recipient2'], options['ratio2'])
-      .then((data) => {
-        response.write(JSON.stringify({
-          "contractAddress": data
-        }));
-        response.statusCode = 200;
-        response.end();
-      })
-      .catch((e) => {
-        console.log(e);
-        response.writeHead(e.status);
-        response.write(JSON.stringify({
-          "error": e
-        }));
-        response.end();
-      });
-  } else if (filePath.includes('./executeSplitContract')) {
-    var optionsQuerystring = filePath.split('?').pop();
-
-    var options = querystring.parse(optionsQuerystring);
-
-    require('./static/js/split')();
-
-    executeSplitContract(options['address'], options['amount'])
-      .then((data) => {
-        response.write(JSON.stringify({
-          "txId": data
-        }));
-        response.statusCode = 200;
-        response.end();
-      })
-      .catch((e) => {
-        console.log(e);
-        response.writeHead(e.status);
-        response.write(JSON.stringify({
-          "error": e
-        }));
-        response.end();
-      });
-  } 
-
 })

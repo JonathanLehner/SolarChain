@@ -9,7 +9,7 @@ docker build . -t jonathanlehner/solarchain
 docker run -p 49160:8080 -d jonathanlehner/solarchain
 ## remotely (make sure you installed docker on DigitalOcean)
 docker push jonathanlehner/solarchain
-DOCKER_HOST=ssh://root@167.172.191.194 docker run -p 49160:8080 -d jonathanlehner/solarchain
+DOCKER_HOST=ssh://root@167.172.191.194 docker run -p 80:8080 -d jonathanlehner/solarchain
 
 ssh root@167.172.191.194
 apt  install certbot

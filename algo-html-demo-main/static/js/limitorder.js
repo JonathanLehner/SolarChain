@@ -29,7 +29,11 @@ module.exports = function () {
    * @param {string} contractOwner The wallet address of the contract owner
    * @returns {string} The address of the created limit contract
    */
-  this.createPVLimitContract = async function (contractOwner) {
+  this.createPVLimitContract = async function (contractOwner, price) {
+    console.log("createPVLimitContract")
+    console.log(price)
+    console.log(contractOwner)
+
     // create the client
     let algodClient = new algosdk.Algodv2(token, server, port);
 
@@ -38,9 +42,9 @@ module.exports = function () {
     // INPUTS
 
     let ratn = parseInt(1); // 1 PV
-    let ratd = parseInt(1000000); // for 1 Algo
+    let ratd = parseInt(1000000*parseInt(price)/100); // for 1 Algo -- divided by 100 for demo due to limited Algos from faucet
     let assetID = 42004617; // ID of the PV asset
-    let minTrade = 999999; // minimum number of microAlgos to accept
+    let minTrade = 9999; // minimum number of microAlgos to accept
     let expiryRound = txParams.lastRound + parseInt(10000);
     let maxFee = 2000; // we set the max fee to avoid account bleed from excessive fees
 
@@ -97,7 +101,7 @@ module.exports = function () {
    * @param {string} contractAddress The address of a limit contract
    * @returns {string} The ID of the transaction that performed the asset swap
    */
-  this.executePVLimitContract = async function (contractAddress) {
+  this.executePVLimitContract = async function (contractAddress, price) {
     // read the TEAL program from local storage
     const data = await fs.readFile(`static/contracts/${contractAddress}`);
     let limitProgram = data;
@@ -107,7 +111,7 @@ module.exports = function () {
 
     // set the proper amounts
     let assetAmount = parseInt(1);
-    let microAlgoAmount = parseInt(1000000);
+    let microAlgoAmount = parseInt(1000000*parseInt(price)/100);
 
     let txParams = await algodClient.getTransactionParams().do();
 
