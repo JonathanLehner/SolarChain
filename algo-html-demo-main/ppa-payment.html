@@ -18,6 +18,18 @@
     .modal-content {
       width: auto;
     }
+
+    table {
+      table-layout: fixed;
+      margin-bottom: 20px;
+    }
+
+    table td, th{
+      padding: 5px; 
+      width: 200px; 
+      overflow: hidden;
+    }
+
   </style>
 </head>
 
@@ -101,12 +113,19 @@
       </div>
 
       <div id="divDemoBlock" class="is-hidden">
-        <h1 class="title">Split Contract Demo</h1>
+        <h1 class="title">PPA payment</h1>
 
         <p class="subtitle">
-          Split a payment between two accounts. If you don't have any Algos to test with, use the TestNet Faucet in the
-          Tools menu to add Algos to your TestNet account.
+          Pay for your concluded power purchase agreements (PPAs). The usage-based fee includes a maintenance fee which is automatically sent to SolarCoin by the smart contract. Certificates of Origin can be paid for in an analogous way.  
         </p>
+
+        <table>
+          <tr><th>Owner</th><th>Expiry</th><th>Asset name</th><th>Supplied electricity</th><th>Price per kWh</th><th>Total price</th><th></th></tr>
+          <tr><td>PGPN6HSIXJT73IHLCSAH...</td><td>09/2022</td><td>PV Zurich 1</td><td>5000</td><td>0.1 mili-ALGO</td><td>0.5 ALGO</td><td><a id="select1">pay now</a></td></tr>
+          <tr><td>PGPN6HSIXJT73IHLCSAH...</td><td>09/2022</td><td>PV Zurich 7</td><td>5500</td><td>0.2 mili-ALGO</td><td>1.1 ALGO</td><td><a id="select2">pay now</a></td></tr>
+          <tr><td>MXGQURRN2EDHAEXDXEE4...</td><td>08/2022</td><td>PV Zurich 5</td><td>7000</td><td>0.2 mili-ALGO</td><td>1.4 ALGO</td><td><a id="select3">pay now</a></td></tr>
+          <div><a>Search for PPA offers</a> / <a>Offer PPA for my NFTs</a></div>
+        </table>
 
         <div class="columns">
           <div class="column">
@@ -135,14 +154,16 @@
           <div class="column is-10">
             <div class="field is-horizontal">
               <div class="field-label is-normal">
-                <label class="label">Receiver A</label>
+                <label class="label">PV NFT owner</label>
               </div>
               <div class="field-body">
                 <div class="field">
                   <div class="control is-expanded has-icons-left">
                     <div class="select is-fullwidth">
-                      <select id="receiverAField">
-                        <option value="-1">No accounts available</option>
+                      <select id="receiverAField" disabled>
+                        <option value="-1">Select PPA above</option>
+                        <option value="PGPN6HSIXJT73IHLCSAH74NQB2KRGGZP3IPX5XKXA46LUIVOSOEYL3TOI4">PGPN6HSIXJT73IHLCSAH74NQB2KRGGZP3IPX5XKXA46LUIVOSOEYL3TOI4</option>
+                        <option value="MXGQURRN2EDHAEXDXEE4H7XIDA4Q7PUSSXEXCC3Q2ABSKAKCHCLBRF46WU">MXGQURRN2EDHAEXDXEE4H7XIDA4Q7PUSSXEXCC3Q2ABSKAKCHCLBRF46WU</option>    
                       </select>
                     </div>
                     <div class="icon is-small is-left">
@@ -158,7 +179,7 @@
               <div class="field-body">
                 <div class="field">
                   <div class="control is-expanded has-icons-left">
-                    <input id="percentOfPaymentAField" class="input" type="number" value="50" min="0" max="100"                       onchange="balancePercentageFields(this.id);">
+                    <input id="percentOfPaymentAField" class="input" type="number" value="90" onchange="balancePercentageFields(this.id);" disabled>
                     <div class="icon is-small is-left">
                       <i class="fas fa-percent"></i>
                     </div>
@@ -172,14 +193,14 @@
           <div class="column is-10">
             <div class="field is-horizontal">
               <div class="field-label is-normal">
-                <label class="label">Receiver B</label>
+                <label class="label">SolarCoin <i>maintenance</i></label>
               </div>
               <div class="field-body">
                 <div class="field">
                   <div class="control is-expanded has-icons-left">
                     <div class="select is-fullwidth">
-                      <select id="receiverBField">
-                        <option value="-1">No accounts available</option>
+                      <select id="receiverBField" disabled>
+                        <option value="PGPN6HSIXJT73IHLCSAH74NQB2KRGGZP3IPX5XKXA46LUIVOSOEYL3TOI4">PGPN6HSIXJT73IHLCSAH74NQB2KRGGZP3IPX5XKXA46LUIVOSOEYL3TOI4</option>
                       </select>
                     </div>
                     <div class="icon is-small is-left">
@@ -195,7 +216,7 @@
               <div class="field-body">
                 <div class="field">
                   <div class="control is-expanded has-icons-left">
-                    <input id="percentOfPaymentBField" class="input" type="number" value="50" min="0" max="100" 
+                    <input id="percentOfPaymentBField" class="input" type="number" value="10" disabled
                       onchange="balancePercentageFields(this.id);">
                     <div class="icon is-small is-left">
                       <i class="fas fa-percent"></i>
@@ -208,12 +229,12 @@
         </div>
         <div class="field is-horizontal">
           <div class="field-label is-normal">
-            <label class="label">Amount to Split</label>
+            <label class="label">Total price</label>
           </div>
           <div class="field-body">
             <div class="field has-addons">
               <div class="control is-expanded has-icons-left">
-                <input class="input" id="amountToSplitField" placeholder="µAlgos" onchange="updateMicroAlgoConverter(this.value);">
+                <input class="input" id="priceField" placeholder="µAlgos" onchange="updateMicroAlgoConverter(this.value);" disabled>
                 <div class="icon is-small is-left">
                   <i class="fas fa-coins"></i>
                 </div>
@@ -246,15 +267,35 @@
       checkForAlgosigner();
     });
 
+    let select1 = document.getElementById("select1")
+    let select2 = document.getElementById("select2")
+    let select3 = document.getElementById("select3")
+    let priceField = document.getElementById("priceField")
+    let receiverField = document.getElementById("receiverAField")
+
+    select1.addEventListener("click", function () {
+      priceField.value = 500*1000;
+      updateMicroAlgoConverter(500*1000);
+      receiverField.value = "PGPN6HSIXJT73IHLCSAH74NQB2KRGGZP3IPX5XKXA46LUIVOSOEYL3TOI4"
+    });
+    select2.addEventListener("click", function () {
+      priceField.value = 1100*1000;
+      updateMicroAlgoConverter(1100*1000);
+      receiverField.value = "PGPN6HSIXJT73IHLCSAH74NQB2KRGGZP3IPX5XKXA46LUIVOSOEYL3TOI4"
+    });
+    select3.addEventListener("click", function () {
+      priceField.value = 1400*1000;      
+      updateMicroAlgoConverter(1400*1000);
+      receiverField.value = "MXGQURRN2EDHAEXDXEE4H7XIDA4Q7PUSSXEXCC3Q2ABSKAKCHCLBRF46WU"
+    });
+
+
     function fetchAccounts() {
       showProcessingModal("Please wait...");
       let senderSelect = document.getElementById('senderField');
-      let receiverASelect = document.getElementById('receiverAField');
       let receiverBSelect = document.getElementById('receiverBField');
 
       renderLoadingSelect(senderSelect);
-      renderLoadingSelect(receiverASelect);
-      renderLoadingSelect(receiverBSelect);
 
       AlgoSigner.connect()
         // fetch accounts
@@ -264,8 +305,6 @@
         // populate account dropdowns
         .then((accountsData) => {
           renderAccountSelect(senderSelect, accountsData);
-          renderAccountSelect(receiverASelect, accountsData);
-          renderAccountSelect(receiverBSelect, accountsData);
           hideProcessingModal();
         })
         .catch((e) => {
@@ -280,7 +319,7 @@
       let recipient2 = document.getElementById('receiverBField').value;
       let ratio1 = document.getElementById('percentOfPaymentAField').value;
       let ratio2 = document.getElementById('percentOfPaymentBField').value;
-      let amount = document.getElementById('amountToSplitField').value;
+      let amount = document.getElementById('priceField').value;
       let contractAddress = null;
 
       if(amount * ratio1 / 100 < 3000 || amount * ratio2 / 100 < 3000) {
@@ -295,7 +334,7 @@
       showProcessingModal("Creating split contract...");
 
       fetch(
-          `createSplitContract?sender=${sender}&recipient1=${recipient1}&ratio1=${ratio1}&recipient2=${recipient2}&ratio2=${ratio2}`
+          `createPVLimitContract?sender=${sender}&recipient1=${recipient1}&ratio1=${ratio1}&recipient2=${recipient2}&ratio2=${ratio2}`
         )
         .then((d) => d.json())
         .then((d) => {
@@ -339,7 +378,7 @@
           document.getElementById('processingMessage').innerHTML = "Executing contract...";
         })
         // after the contract funding is confirmed, execute the split
-        .then(() => fetch(`executeSplitContract?address=${contractAddress}&amount=${amount}`))
+        .then(() => fetch(`executePVLimitContract?address=${contractAddress}&amount=${amount}`))
         .then((d) => d.json())
         .then((d) => {
           if (d["error"]) {

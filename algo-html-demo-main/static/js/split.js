@@ -1,5 +1,5 @@
 /**
- * Split Contract
+ * PPA Payment Contract
  * @module split
  */
 
@@ -32,6 +32,10 @@ module.exports = function () {
    * */
   this.createSplitContract = async function (sender, recipient1, ratio1,
     recipient2, ratio2) {
+    console.log("createSplitContract")
+    console.log(ratio1)
+    console.log(ratio2)
+
     // create the client
     let algodClient = new algosdk.Algodv2(token, server, port);
 

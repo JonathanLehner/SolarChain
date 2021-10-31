@@ -1,5 +1,5 @@
 /**
- * Limit Order Smart Contract
+ * NFT Offer Smart Contract
  * @module limitorder
  */
 
@@ -22,12 +22,12 @@ module.exports = function () {
   let PVAccountMnemonic = "oyster chalk fan net shoot grocery board sample abuse asset host plug lift term manual noble rookie rescue goddess own essay oval false absent fortune";
 
   /**
-   * Creates a Limit Order smart contract
+   * Creates a NFT Offer smart contract
    *
    * @memberof limitorder
    * @async
    * @param {string} contractOwner The wallet address of the contract owner
-   * @returns {string} The address of the created limit contract
+   * @returns {string} The address of the created offer contract
    */
   this.createPVLimitContract = async function (contractOwner, price) {
     console.log("createPVLimitContract")
@@ -89,12 +89,12 @@ module.exports = function () {
     await algoutils.waitForConfirmation(algodClient, resultTx.txId);
     console.log(`Transaction confirmed. Funding transaction ID: ${resultTx.txId}`);
 
-    // return the limit order's address on the blockchain
+    // return the NFT Offer's address on the blockchain
     return address;
   }
 
   /**
-   * Executes a Limit Order smart contract
+   * Executes a NFT Offer smart contract
    *
    * @memberof limitorder
    * @async
